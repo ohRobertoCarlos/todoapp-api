@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -197,7 +198,8 @@ return [
         /*
          * ToDo app Service Providers...
          */
-        \App\ToDo\Todos\Providers\ToDoProvider::class
+        \App\ToDo\Todos\Providers\ToDoProvider::class,
+        \App\ToDo\Auth\Providers\AuthServiceProvider::class,
 
     ],
 
