@@ -25,10 +25,15 @@ class RegisterController extends Controller
             'name' => 'min:2'
         ]);
 
+        $userEmailExists = $this->repository->findByEmail($userData['email']);
+        if (!empty($userEmailExists)) {
+            abort(403, 'Já existe um usuário com esse e-mail!');
+        }
+
         $userData['password'] = Hash::make($userData['password']);
 
         if (!$user = $this->repository->create($userData))
-            abort('Could not create user');
+            abort(500, 'Could not create user');
 
         return response()->json([
             'data' => [
