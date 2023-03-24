@@ -21,7 +21,7 @@ class RegisterController extends Controller
     {
         $userData = $request->validate([
             'email' => ['required','email'],
-            'password' => ['required','min:4'],
+            'password' => ['required','confirmed','regex:/^(?=.*\d)(?=.*\W)[\da-zA-Z\W]{6,}$/'],
             'name' => 'min:2'
         ]);
 
