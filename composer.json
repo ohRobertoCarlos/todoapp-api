@@ -1,8 +1,9 @@
 {
-    "name": "laravel/laravel",
+    "name": "ohrobertocarlos/todoapp-api",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "ToDo App api",
+    "keywords": ["api", "todo"],
+    "version": "0.1",
     "license": "MIT",
     "require": {
         "php": "^8.1",
@@ -61,6 +62,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
