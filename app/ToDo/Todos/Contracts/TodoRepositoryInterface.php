@@ -12,4 +12,5 @@ interface TodoRepositoryInterface
     public function update(array $data, int $todoId, int $userId) : bool;
     public function delete(int $todoId , int $userId) : bool;
     public function get(int $todoId, int $userId) : Model | null;
+    public function destroyAll(int $userId) : bool;
 }

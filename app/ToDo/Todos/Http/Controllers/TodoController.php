@@ -67,4 +67,15 @@ class TodoController extends Controller
 
         return 'Tarefa deletada com sucesso!';
     }
+
+    public function destroyAll(Request $request)
+    {
+        try {
+            $this->todoService->destroyAll($request);
+        } catch(Throwable $e) {
+            return ['error' => $e->getMessage()];
+        }
+
+        return 'Todas tarefas deletadas com sucesso!';
+    }
 }

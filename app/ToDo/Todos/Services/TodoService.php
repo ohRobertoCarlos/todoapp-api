@@ -40,4 +40,9 @@ class TodoService
     {
         return $this->todoRepository->delete($id, Auth::user()->id);
     }
+
+    public function destroyAll(Request $request)
+    {
+        return $this->todoRepository->destroyAll(Auth::user()->id);
+    }
 }

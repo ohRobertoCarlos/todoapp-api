@@ -57,4 +57,11 @@ class TodoRepository implements TodoRepositoryInterface
         ->where('user_id', $userId)
         ->first();
     }
+
+    public function destroyAll(int $userId): bool
+    {
+        return $this->model
+        ->where('user_id', $userId)
+        ->delete();
+    }
 }
