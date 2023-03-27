@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  app:
+    build: ./docker/php-apache
+    container_name: container-app
+    working_dir: /var/www/html
+    volumes:
+      - ./todoapp-api/:/var/www/html
+      - ./docker/php-apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    ports:
+      - 8000:80
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: database-container
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: acWa545Ksdf4
+      MYSQL_DATABASE: todoapp
+      MYSQL_USER: todoapp
+      MYSQL_PASSWORD: dPdOGs46sj
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
