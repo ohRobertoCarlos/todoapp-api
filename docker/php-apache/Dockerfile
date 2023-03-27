@@ -1,6 +1,6 @@
 FROM php:8.1-apache
 
-RUN apt-get update && apt-get upgrade
+RUN apt update
 
 RUN apt install zip -y
 
