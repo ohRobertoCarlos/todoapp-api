@@ -3,6 +3,7 @@
 ## Denpendências para rodar projeto
  * docker
  * docker-compose-plugin
+ * git
 
 ## Clone o projeto
 
