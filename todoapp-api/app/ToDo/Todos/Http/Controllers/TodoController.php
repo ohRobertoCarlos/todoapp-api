@@ -4,6 +4,7 @@ namespace App\ToDo\Todos\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\ToDo\Todos\Services\TodoService;
+use Exception;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -19,21 +20,24 @@ class TodoController extends Controller
         try {
             $todos = $this->todoService->index($request);
         } catch(Throwable $e) {
-            return ['error' => $e->getMessage()];
+            return response()->json('Não foi possível listar os ToDos', 404);
         }
 
-        return $todos;
+        return response()->json($todos);
     }
 
     public function show(Request $request, $id)
     {
         try {
             $todo = $this->todoService->show($request, $id);
+            if (empty($todo)) {
+                throw new Exception('Todo Não encontrado!');
+            }
         } catch(Throwable $e) {
-            return ['error' => $e->getMessage()];
+            return response()->json('Não foi possível buscar o ToDo', 404);
         }
 
-        return $todo;
+        return response()->json($todo);
     }
 
     public function store(Request $request)
@@ -41,10 +45,10 @@ class TodoController extends Controller
         try {
             $todo = $this->todoService->store($request);
         } catch(Throwable $e) {
-            return ['error' => $e->getMessage()];
+            return response()->json('Não foi possível criar o ToDo', 404);
         }
 
-        return $todo;
+        return response()->json($todo, 201);
     }
 
     public function update(Request $request, $id)
@@ -52,9 +56,9 @@ class TodoController extends Controller
         try {
             $this->todoService->update($request, $id);
         } catch(Throwable $e) {
-            return ['error' => $e->getMessage()];
+            return response()->json('Não foi possível atualizar o ToDo', 404);
         }
-        return 'Todo atualizado com sucesso!';
+        return response()->json([]);
     }
 
     public function destroy(Request $request, $id)
@@ -62,10 +66,10 @@ class TodoController extends Controller
         try {
             $this->todoService->destroy($request, $id);
         } catch(Throwable $e) {
-            return ['error' => $e->getMessage()];
+            return response()->json('Não foi possível deletar o ToDo', 404);
         }
 
-        return 'Tarefa deletada com sucesso!';
+        return response()->json([]);
     }
 
     public function destroyAll(Request $request)
@@ -73,9 +77,20 @@ class TodoController extends Controller
         try {
             $this->todoService->destroyAll($request);
         } catch(Throwable $e) {
-            return ['error' => $e->getMessage()];
+            return response()->json('Não foi possível deletar todos ToDos', 404);
         }
 
-        return 'Todas tarefas deletadas com sucesso!';
+        return response()->json([]);
+    }
+
+    public function done(Request $request, $id)
+    {
+        try {
+            $this->todoService->done($id);
+        } catch(Throwable $e) {
+            return response()->json('Não foi possível marcar como feito um ToDo', 404);
+        }
+
+        return response()->json([]);
     }
 }

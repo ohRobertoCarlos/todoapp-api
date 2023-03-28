@@ -4,6 +4,7 @@ namespace App\ToDo\Todos\Services;
 
 use App\ToDo\Todos\Contracts\TodoRepositoryInterface;
 use App\ToDo\Todos\Repositories\TodoRepository;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,5 +45,15 @@ class TodoService
     public function destroyAll(Request $request)
     {
         return $this->todoRepository->destroyAll(Auth::user()->id);
+    }
+
+    public function done(int $todoId)
+    {
+        $todoDone = $this->todoRepository->update(['done' => true], $todoId, Auth::user()->id);
+        if (!$todoDone) {
+            throw new Exception('Não foi possível mudar ToDo para feito!');
+        }
+
+        return $todoDone;
     }
 }
