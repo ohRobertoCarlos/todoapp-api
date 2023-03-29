@@ -1,8 +1,6 @@
-name: Testing todoapp-api on push dev e pull-request main
+name: Running tests
 
 on:
-  push:
-    branches: [ "dev" ]
   pull_request:
     branches: [ "main" ]
 
@@ -16,12 +14,10 @@ jobs:
       with:
         php-version: '8.1'
     - uses: actions/checkout@v3
-    - name: Entry directory project tests
-      run: cd todoapp-api
     - name: Copy .env
       run: cd todoapp-api && php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
-      run: cd todoapp-api && ls && composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: cd todoapp-api && composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
       run: cd todoapp-api && php artisan key:generate
     - name: Directory Permissions
