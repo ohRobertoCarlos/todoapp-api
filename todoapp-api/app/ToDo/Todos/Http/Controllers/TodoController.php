@@ -64,7 +64,10 @@ class TodoController extends Controller
     public function destroy(Request $request, $id)
     {
         try {
-            $this->todoService->destroy($request, $id);
+            $todoDeleted = $this->todoService->destroy($request, $id);
+            if (!$todoDeleted) {
+                throw new Exception('Não foi possível deletar o ToDo!');
+            }
         } catch(Throwable $e) {
             return response()->json('Não foi possível deletar o ToDo', 404);
         }
