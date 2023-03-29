@@ -34,7 +34,11 @@ class TodoService
 
     public function update(Request $request, $id)
     {
-        return $this->todoRepository->update($request->all(), $id, Auth::user()->id);
+        $todoUpdated =  $this->todoRepository->update($request->all(), $id, Auth::user()->id);
+
+        if (!$todoUpdated) {
+            throw new Exception('Todo não encontrado!');
+        }
     }
 
     public function destroy(Request $request, $id)
