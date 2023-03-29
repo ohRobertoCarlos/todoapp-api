@@ -41,6 +41,18 @@ test('must create a todo', function () {
     $response->assertCreated();
 });
 
+test('must not update a todo', function () {
+    Sanctum::actingAs(
+        User::factory()->create()
+    );
+
+    $data = ['content', fake()->text()];
+
+    $response = $this->patchJson('/api/v1/todos/10', $data);
+
+    $response->assertNotFound();
+});
+
 test('must change a todo to done', function () {
     Sanctum::actingAs(
         User::factory()->create()
