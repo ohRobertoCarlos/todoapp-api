@@ -1,6 +1,8 @@
-name: Testing todoapp-api
+name: Testing todoapp-api on push dev e pull-request main
 
 on:
+  push:
+    branches: [ "dev" ]
   pull_request:
     branches: [ "main" ]
 
