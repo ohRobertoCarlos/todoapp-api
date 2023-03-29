@@ -1,8 +1,6 @@
-name: Laravel
+name: Testing todoapp-api
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -16,20 +14,27 @@ jobs:
       with:
         php-version: '8.1'
     - uses: actions/checkout@v3
+    - name: Entry directory project tests
+      run: cd todoapp-api
     - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      run: cd todoapp-api && php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: cd todoapp-api && ls && composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
-      run: php artisan key:generate
+      run: cd todoapp-api && php artisan key:generate
     - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
+      run: cd todoapp-api && chmod -R 777 storage bootstrap/cache
     - name: Create Database
       run: |
-        mkdir -p database
+        cd todoapp-api && mkdir -p database
         touch database/database.sqlite
+    - name: Execute migrations
+      env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+      run: cd todoapp-api && php artisan migrate
     - name: Execute tests
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test
+      run: cd todoapp-api && php artisan test
