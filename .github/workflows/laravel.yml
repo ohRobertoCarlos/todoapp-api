@@ -30,6 +30,11 @@ jobs:
       run: |
         cd todoapp-api && mkdir -p database
         touch database/database.sqlite
+    - name: Execute migrations
+      env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+      run: cd todoapp-api && php artisan migrate
     - name: Execute tests
       env:
         DB_CONNECTION: sqlite
