@@ -22,11 +22,12 @@ cd todoapp-api
 Crie um arquivo .env a partir do arquivo .env.example dentro do diretório todoapp-api/
 
 #### Se estiver no linux apenas rode o seguinte comando:
- ```bash
+
+```bash
 cp ./todoapp-api/.env.example ./todoapp-api/.env
 ```
+### Dependendo da versão do seu docker-compose, rode um dos comando abaixo na raiz do repositório:
 
-### Dependendo da versão do seu docker, rode um dos comando abaixo na raiz do repositório:
 ```bash
 docker-compose up -d
 ```
@@ -53,5 +54,11 @@ docker exec container-app php artisan migrate
 
 ```bash
 docker exec container-app chown -R www-data:www-data storage/
+```
+
+### Para rodar os testes, execute:
+
+```bash
+docker exec -it container-app php artisan test
 ```
 
