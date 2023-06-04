@@ -20,7 +20,9 @@ class TodoController extends Controller
         try {
             $todos = $this->todoService->index($request);
         } catch(Throwable $e) {
-            return response()->json('Não foi possível listar os ToDos', 404);
+            return response()->json([
+                'message' => 'Não foi possível listar os ToDos'
+            ], 404);
         }
 
         return response()->json($todos);
@@ -34,7 +36,9 @@ class TodoController extends Controller
                 throw new Exception('Todo Não encontrado!');
             }
         } catch(Throwable $e) {
-            return response()->json('Não foi possível buscar o ToDo', 404);
+            return response()->json([
+                'message' => 'Não foi possível buscar o ToDo'
+            ], 404);
         }
 
         return response()->json($todo);
@@ -45,7 +49,9 @@ class TodoController extends Controller
         try {
             $todo = $this->todoService->store($request);
         } catch(Throwable $e) {
-            return response()->json('Não foi possível criar o ToDo', 404);
+            return response()->json([
+                'message' => 'Não foi possível criar o ToDo'
+            ], 404);
         }
 
         return response()->json($todo, 201);
@@ -56,7 +62,9 @@ class TodoController extends Controller
         try {
             $this->todoService->update($request, $id);
         } catch(Throwable $e) {
-            return response()->json('Não foi possível atualizar o ToDo', 404);
+            return response()->json([
+                'message' => 'Não foi possível atualizar o ToDo'
+            ], 404);
         }
         return response()->json([]);
     }
@@ -69,7 +77,9 @@ class TodoController extends Controller
                 throw new Exception('Não foi possível deletar o ToDo!');
             }
         } catch(Throwable $e) {
-            return response()->json('Não foi possível deletar o ToDo', 404);
+            return response()->json([
+                'message' => 'Não foi possível deletar o ToDo'
+            ], 404);
         }
 
         return response()->json([]);
@@ -80,7 +90,9 @@ class TodoController extends Controller
         try {
             $this->todoService->destroyAll($request);
         } catch(Throwable $e) {
-            return response()->json('Não foi possível deletar todos ToDos', 404);
+            return response()->json([
+                'message' => 'Não foi possível deletar todos ToDos'
+            ], 404);
         }
 
         return response()->json([]);
@@ -91,7 +103,9 @@ class TodoController extends Controller
         try {
             $this->todoService->done($id);
         } catch(Throwable $e) {
-            return response()->json('Não foi possível marcar como feito um ToDo', 404);
+            return response()->json([
+                'message' => 'Não foi possível marcar como feito um ToDo'
+            ], 404);
         }
 
         return response()->json([]);
